@@ -1,0 +1,99 @@
+{% extends "teacherhome/layout.html" %} 
+{% block metatags %} {% endblock %} 
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+  
+
+       <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
+           <ul class="nav flex-column">
+               <li class="nav-item">
+                   <a class="nav-link" href="{{url_for('teacherhome_blueprint.announcementsteacher', course_id = course.id)}}">Announcements</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" href="{{url_for('teacherhome_blueprint.upload_document', course_id = course.id)}}">Documents</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link disabled" href="#">Assignments</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" href="{{url_for('teacherhome_blueprint.create_lecture', course_id = course.id)}}">Create Questionaires and Lectures</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" href="{{url_for('teacherhome_blueprint.lectures', course_id = course.id)}}">Student Responses</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" href="{{url_for('teacherhome_blueprint.liveformlectures', course_id = course.id)}}">Live Form Responses</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" href="{{url_for('teacherhome_blueprint.pass_grades', course_id = course.id)}}">Grades</a>
+               </li>
+           </ul>
+      </div>
+  
+      
+       <div class="col-md-9">
+           <div class="jumbotron">
+
+
+               <h1 class="display-4" align="center" style="font-weight:600">{{course.title}} </h1>
+               <hr class="my-4">
+               <div class="container">
+                   <div class="row">
+                       <div class="col-12">
+                           <div class="card">
+                               <div class="card-body">
+                                   <div class="mb-3">
+                                       <h5 class="card-title">New Assignment</h5>
+                                   </div>
+                                   <form method="post">
+                                       {{ form.hidden_tag }}
+                                       {{ form.csrf_token }}
+                                       <div>
+                                           {{ form.assignment_title.label }}
+                                           {{ form.assignment_title(class="form-control") }}
+                                       </div>
+                                       <div>
+                                           {{ form.assignment_description.label }}
+                                           {{ form.assignment_description(class="form-control") }}
+                                       </div>
+                                       <div>
+                                           {{ form.assignment_date.label }}
+                                           {{ form.assignment_date(class="form-control") }}
+                                       </div>
+                                       <div>
+                                           {{ form.course_id.label }}
+                                           {{ form.course_id(class="form-control") }}
+                                       </div>
+                                       <input type="submit" name="assignmentsteacher" value="Add Assignment">
+                                   </form>
+
+
+
+                               </div>
+                           </div>
+
+                       </div>
+                   </div>
+
+
+                   <hr class="my-4">
+                   {%for assignment in assignments%}
+                   <h3><u><a href="{{url_for('teacherhome_blueprint.assignmentsolution', course_id=course.id,assignment_id = assignment.id)}}">{{ assignment.assignment_title }}</a></u></h3>
+                  
+
+
+                  
+           <form method="POST" action="{{ url_for('teacherhome_blueprint.delete_assignment', course_id=course.id,assignment_id = assignment.id) }}">
+               {{ deleteassignmentform.csrf_token }}
+               {{ deleteassignmentform.hidden_tag() }}
+
+               <input type="submit" value="Delete Assingment" name="submit">
+
+           </form>
+           {%endfor%}
+
+
+       </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "teacherhome/layout.html" %}
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('teacherhome_blueprint.announcementsteacher', course_id = course.id)}}">Announcements</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('teacherhome_blueprint.upload_document', course_id = course.id)}}">Documents</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('teacherhome_blueprint.addassignment', course_id = course.id)}}">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('teacherhome_blueprint.create_lecture', course_id = course.id)}}">Create Questionaires and Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Student Responses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('teacherhome_blueprint.liveformlectures', course_id = course.id)}}">Live Form Responses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('teacherhome_blueprint.pass_grades', course_id = course.id)}}">Grades</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-md-9">
+        <div class="jumbotron">
+            <h1 class="display-4">View Student responses for each lecture</h1>
+
+            <hr class="my-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Lecture Title</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {%for lecture in lectures%}
+                                <tr>
+                                    <td><a href="{{url_for('teacherhome_blueprint.questionaire_responses', course_id = course.id, lecture_id = lecture.id)}}">{{lecture.title}}</a></td>
+
+
+                                </tr>
+                                {%endfor%}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+</div>
+{% endblock %}

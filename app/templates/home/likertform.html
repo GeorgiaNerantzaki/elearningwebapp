@@ -1,0 +1,61 @@
+{% extends "home/layout.html" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+
+      
+        <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('home_blueprint.announcements', course_id = course.id)}}">Announcements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('home_blueprint.view_documents', course_id = course.id)}}">Documents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('home_blueprint.view_assignment', course_id = course.id)}}">Assignments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('home_blueprint.view_lectures', course_id = course.id)}}">Questionaires about lectures</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('home_blueprint.liveformlectures', course_id = course.id)}}">Live Form</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('home_blueprint.view_grade', course_id = course.id)}}">Grades</a>
+                </li>
+            </ul>
+        </div>
+         
+        <div class="col-md-9">
+            <div class="jumbotron">
+                <h1 class="display-4" align="center" style="font-weight:600">{{course.title}} </h1>
+                <h4 class="display-4" align="center" >{{lecture.title}} </h4>
+                <hr class="my-4">
+                <div class="container"><p class="text-center"><strong><u>Form</u></strong></p></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <form method="POST">
+                                
+                                {% if lecture %}
+                                <div>
+                                    <label>{{ lecture.question_text }}</label><br>
+                                    
+                                    <input type="radio" name="response_{{ lecture.id }}" value="Strongly Disagree"> Strongly Disagree
+                                    <input type="radio" name="response_{{ lecture.id }}" value="Disagree"> Disagree
+                                    <input type="radio" name="response_{{ lecture.id }}" value="Neutral"> Neutral
+                                    <input type="radio" name="response_{{ lecture.id }}" value="Agree"> Agree
+                                    <input type="radio" name="response_{{ lecture.id }}" value="Strongly Agree"> Strongly Agree
+                                </div>
+                                {% endif %}
+                                <input type="submit" value="Submit">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "home/layout.html" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+
+
+        <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Announcements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('home_blueprint.view_documents', course_id = course.id)}}">Documents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('home_blueprint.view_assignment', course_id = course.id,assignment_id=assignment.id)}}">Assignments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('home_blueprint.view_lectures', course_id = course.id)}}">Questionaires about lectures</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('home_blueprint.liveformlectures', course_id = course.id)}}">Live Form</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('home_blueprint.view_grade', course_id = course.id)}}">Grades</a>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="col-md-9">
+            <div class="jumbotron">
+
+
+                <h1 class="display-4" align="center" style="font-weight:600">{{course.title}} </h1>
+                <hr class="my-4">
+                <div class="container"><p class="text-center"><strong><u>Announcements</u></strong></p></div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Announcement Titlle</th>
+                                        <th>Announcement Description</th>
+                                        <th scope="col">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for announcement in announcements%}
+                                    <tr>
+                                        <td>{{announcement.announcement_title}}</td>
+                                        <td>{{announcement.announcement_description}}</td>
+                                        <td>{{announcement.announcement_date}}</td>
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends "teacherhome/layout.html" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+
+
+        <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.announcementsteacher', course_id = course.id)}}">Announcements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.upload_document', course_id = course.id)}}">Documents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.addassignment', course_id = course.id)}}">Assignments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.create_lecture', course_id = course.id)}}">Create Questionaires and Lectures</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.lectures', course_id = course.id)}}">Student Responses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Live Form Responses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.pass_grades', course_id = course.id)}}">Grades</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div class="jumbotron">
+                <div class="col-md-12">
+                    <h1 class="display-4" align="center">{{ course.title }}</h1>
+                    <h2>{{lecture.title}}</h2>
+                    <hr class="my-4">
+                    {%if lecture.lecture_activated == False%}
+                    <p>Form Dectivated</p>
+                    <form method="POST" action="{{ url_for('teacherhome_blueprint.activate_liveform', course_id=course.id, lecture_id = lecture.id) }}">
+                        {{ activateform.csrf_token }}
+                        {{ activateform.hidden_tag() }}
+
+                        <input type="submit" value="Activate Form" name="submit">
+
+                    </form>
+                    {%endif%}
+
+                    {%if lecture.lecture_activated == True%}
+                    <p>Form Activated</p>
+                    <form method="POST" action="{{ url_for('teacherhome_blueprint.deactivate_liveform', course_id=course.id, lecture_id = lecture.id) }}">
+                        {{ deactivateform.csrf_token }}
+                        {{ deactivateform.hidden_tag() }}
+
+                        <input type="submit" value="Deactivate Form" name="submit">
+
+                    </form>
+                    {%endif%}
+
+                    <h3>Lecture Statistics:</h3>
+                    <p>Number of enrolled students:{{enrolled_students}}</p>
+                    <p>Number or percentage of students that where present at the lecture: {{ response_count }}/{{enrolled_students}} or {{percentage_of_students}} %</p>
+                    <p>Mean Response: {{ mean_response }}</p>
+                    <p>Answer that is submitted by most students: {{ mode_response }}</p>
+                    <p>Total amount or % of students that did not understand the content of the lecture:{{low_responses_count}} or {{low_responses_percentage}} % </p>
+                    <hr class="my-4">
+                    <h3>Response Counts:</h3>
+                    <table class="table table-bordered">
+                        <thead><tr><th scope="col">Option</th><th scope="col">Counts</th></tr></thead>
+                        <tbody>
+
+
+                            {% for option, count in option_counts.items() %}
+                            <tr>
+                                <td>{{ option }}</td>
+                                <td> {{ count }}</td>
+                            </tr>
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                    <hr class="my-4">
+                    <h3>Questions from students</h3>
+
+                    <table class="table table-bordered">
+                        <thead><tr><th scope="col">Comments</th></tr></thead>
+                        <tbody>
+
+
+                            {%for feedback in feedback_from_students%}
+                            <tr>
+                                <td>{{ feedback.comment }}</td>
+
+                            </tr>
+
+                            {%endfor%}
+
+                        </tbody>
+                    </table>
+
+
+                    {% endblock %}

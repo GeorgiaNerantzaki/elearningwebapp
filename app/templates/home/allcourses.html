@@ -1,0 +1,38 @@
+{% extends "home/layout.html" %}
+{% block content %}
+<p class="lead" style="font-weight:800; font-size:35px;">All courses</p>
+<hr class="my-4">
+<div class="container mt-5">
+    <div class="row">
+
+        {% for course in alL_courses %}
+        
+
+        <form method="POST" action="{{ url_for('home_blueprint.enroll_course', course_id=course.id) }}">
+            {{ form.hidden_tag() }}
+            {{ form.course_id(value=course.id) }}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ course.photo }}" class="card-img-top" alt="{{ course.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title" style="font-weight:800"><a href="#"> {{ course.title }}</a></h5>
+                        <p class="card-text">{{ course.title }}</p>
+                        <p class="card-text">{{ course.proffessor }}</p>
+                        <input type="submit" value="Enroll on {{ course.title }}" name="submit_{{ course.id }}">
+
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+
+        
+        {% endfor %}
+
+
+
+    </div>
+</div>
+{% endblock %}
+

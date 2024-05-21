@@ -1,0 +1,71 @@
+{% extends "teacherhome/layout.html" %} 
+{% block metatags %} {% endblock %} 
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+
+        
+        <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.announcementsteacher', course_id = course.id)}}">Announcements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="documentsteacher">Documents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.addassignment', course_id = course.id)}}">Assignments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Create Questionaires and Lectures</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.lectures', course_id = course.id)}}">Student Responses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.liveformlectures', course_id = course.id)}}">Live Form Responses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.pass_grades', course_id = course.id)}}">Grades</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-9">
+            <div class="jumbotron">
+
+
+                <h1 class="display-4" align="center" style="font-weight:600">{{course.title}} </h1>
+                <hr class="my-4">
+                <div class="container"><p class="text-center"><strong><u>Create Lectures and questionaires</u></strong></p></div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>Create Lecture</h2>
+
+                            <form method="POST">
+                                {{ form.hidden_tag }}
+                                {{ form.csrf_token }}
+                                <div>
+                                    {{ form.title.label }}
+                                    {{ form.title(class="form-control") }}
+                                </div>
+                                <div>
+                                    {{ form.question_text.label }}
+                                    {{ form.question_text(class="form-control") }}
+                                </div>
+
+                                <button type="submit">Create Lecture</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    {% endblock %}

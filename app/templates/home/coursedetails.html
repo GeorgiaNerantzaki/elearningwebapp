@@ -1,0 +1,40 @@
+{% extends "home/layout.html" %}
+{% block content %}
+<div class="jumbotron">
+
+    {%if coursedetails%}
+    <h1 class="display-4" align="center" style="font-weight:600">{{coursedetails.title}} </h1>
+    <hr class="my-4">
+    <div class="container">
+        <p class="text-center"><strong><u>About the course</u></strong></p>
+        <p style="margin-left:550px">{{coursedetails.description}}</p>
+
+
+    </div>
+    {%endif%}
+    <div style="width:15% ;border:1px solid black; height:100% ">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('home_blueprint.announcements', course_id = coursedetails.id)}}">Announcements</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('home_blueprint.view_documents', course_id = coursedetails.id)}}">Documents</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('home_blueprint.view_assignment', course_id = coursedetails.id)}}">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('home_blueprint.view_lectures', course_id = coursedetails.id)}}">Questionaires about lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('home_blueprint.liveformlectures', course_id = coursedetails.id)}}">Live Form</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('home_blueprint.view_grade', course_id = coursedetails.id)}}">Grades</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+      {% endblock %}

@@ -1,0 +1,70 @@
+{% extends "teacherhome/layout.html" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.announcementsteacher', course_id = course.id)}}">Announcements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.upload_document', course_id = course.id)}}">Documents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.addassignment', course_id = course.id)}}">Assignments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.create_lecture', course_id = course.id)}}">Create Questionaires and Lectures</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Student Responses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.liveformlectures', course_id = course.id)}}">Live Form Responses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.pass_grades', course_id = course.id)}}">Grades</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div class="jumbotron">
+                <div class="col-md-12">
+                    <h1 class="display-4" align="center">{{ course.title }}</h1>
+                    <h2 class="display-4" align="center">{{ lecture.title }}</h2>
+                    <hr class="my-4">
+                    <h3>Responses Statistics:</h3>
+                    <p>Number or % of students that took part: {{ response_count }} or {{ percentage_of_students }} %</p>
+
+                    <p>Answer that is submitted by most students: {{ mode_response }}</p>
+                    
+                    <hr class="my-4">
+                    <h3>Response Counts:</h3>
+                    <ul>
+                        {% for option, count in option_counts.items() %}
+                        <li>{{ option }}: {{ count }}</li>
+                        {% endfor %}
+                    </ul>
+                    <hr class="my-4">
+                    <h3>Individual Responses:</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Response Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for response in responses %}
+                            <tr>
+                                <td>{{ response.user.username }}</td>
+                                <td>{{ response.response_value }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endblock %}

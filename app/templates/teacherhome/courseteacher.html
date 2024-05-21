@@ -1,0 +1,41 @@
+{% extends "teacherhome/layout.html" %}
+{% block content %}
+<div class="jumbotron">
+
+    {%if courseteacher%}
+    <h1 class="display-4" align="center" style="font-weight:600">{{courseteacher.title}} </h1>
+    <hr class="my-4">
+    <div class="container">
+        <p class="text-center"><strong><u>About the course</u></strong></p>
+         <p style="margin-left:550px">{{courseteacher.description}}</p>
+        <p style="margin-left:550px">Course ID :{{courseteacher.id}}</p>
+        {%endif%}
+    </div>
+    <div style="width:15% ;border:1px solid black; height:100% ">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('teacherhome_blueprint.announcementsteacher', course_id = courseteacher.id)}}">Announcements</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('teacherhome_blueprint.upload_document', course_id = courseteacher.id)}}">Documents</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('teacherhome_blueprint.addassignment', course_id = courseteacher.id)}}">Assignments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('teacherhome_blueprint.create_lecture', course_id = courseteacher.id)}}">Create  Questionaires and Lectures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('teacherhome_blueprint.lectures', course_id = courseteacher.id)}}">Student Responses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('teacherhome_blueprint.liveformlectures', course_id = courseteacher.id)}}">Live Form Responses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('teacherhome_blueprint.pass_grades', course_id = courseteacher.id)}}">Grades</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+      {% endblock %}

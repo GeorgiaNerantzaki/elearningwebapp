@@ -1,0 +1,39 @@
+{% extends 'accounts/layout.html' %}
+
+{% block content %}
+<h2>Sign In</h2>
+
+{% if msg %}
+<p style="color: red;">{{ msg }}</p>
+{% endif %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <li class="error">{{ message }}</li>
+    {% endfor %}
+</ul>
+  {% endif %}
+{% endwith %}
+<!--<p>Demo User: admin@elearningweb.app - 1234 -test</p>-->
+<form method="post">
+    {{ form.hidden_tag }}
+    <div class="form-group">
+        <label for="username">{{ form.username.label }}</label>
+
+        {{ form.username() }}
+    </div>
+    <div class="form-group">
+        <label for="password"> {{ form.password.label }}</label>
+
+        {{ form.password() }}
+    </div>
+
+
+    <div class="form-group">
+        <input type="submit" name="login" value="Sign In">
+    </div>
+</form>
+<p>You don't have an account? Register <a class="link-opacity-100" href="{{url_for('authentication_blueprint.register')}}">here</a></p>
+{% endblock %}

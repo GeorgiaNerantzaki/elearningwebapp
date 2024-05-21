@@ -1,0 +1,54 @@
+{% extends 'home/layout.html' %}
+
+{% block content %}
+<div class="jumbotron">
+    
+    <h1 class="display-4"> Your Courses folder  </h1>
+    <p class="lead">My courses</p>
+
+
+    <hr class="my-4">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Course Name</th>
+                            <th scope="col">Professor</th>
+
+                            <th scope="col"></th>          
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for  course in enrolled_courses %}
+                        <tr>
+
+
+                            <td><a href="{{url_for('home_blueprint.coursedetails', course_id = course.id)}}">{{course.title}}</a></td>
+                            <td>{{course.proffessor}}</td>
+
+                            <form method="POST" action="{{ url_for('home_blueprint.unenroll_course', course_id=course.id) }}">
+                                {{ form.csrf_token }}
+                                {{ form.hidden_tag() }}
+                            <td>
+                                <input type="submit" value="Unenroll" name="submit">
+                            </td>
+                            </form>
+
+
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "teacherhome/layout.html" %} 
+{% block metatags %} {% endblock %} 
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+  
+       <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
+           <ul class="nav flex-column">
+               <li class="nav-item">
+                   <a class="nav-link" href="{{url_for('teacherhome_blueprint.announcementsteacher', course_id = course.id)}}">Announcements</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" href="{{url_for('teacherhome_blueprint.upload_document', course_id = course.id)}}">Documents</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" href="{{url_for('teacherhome_blueprint.addassignment', course_id = course.id)}}">Assignments</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" href="{{url_for('teacherhome_blueprint.create_lecture', course_id = course.id)}}">Create Questionaires and Lectures</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" href="{{url_for('teacherhome_blueprint.lectures', course_id = course.id)}}">Student Responses</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" href="{{url_for('teacherhome_blueprint.liveformlectures', course_id = course.id)}}">Live Form Responses</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link disabled" href="#}">Grades</a>
+               </li>
+           </ul>
+      </div>
+  
+      
+      <div class="col-md-9">
+        <div class="jumbotron">
+          
+  
+          <h1 class="display-4" align="center" style="font-weight:600">{{course.title}} </h1>
+          <hr class="my-4">
+          <p class="h5"><u>Grades</u></p>
+          
+
+        
+      <hr class="my-4">
+<div class="container"><p class="text-center"><strong><u>Manage Students Grades</u></strong></p></div>
+   <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    {% if enrolled_students %}
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        <table>
+                            <tr>
+                                <th>Student ID</th>
+                                <th></th>
+                            </tr>
+                            {% for enrollment in enrolled_students%}
+                            <tr>
+                                <td>{{ enrollment.user_id }}</td>
+                                <td>{{ form.student_grade(class="form-control") }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        <input type="submit" value="Submit Grades">
+                    </form>
+                    {% else %}
+                    <p>No students enrolled yet.</p>
+                    {% endif %}
+                </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+{% endblock %}
