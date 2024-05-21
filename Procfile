@@ -1,1 +1,1 @@
-web: gunicorn elearningwebapp:app
+web: gunicorn run:app
