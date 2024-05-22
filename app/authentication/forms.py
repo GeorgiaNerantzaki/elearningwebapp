@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-from msilib.schema import CheckBox
+#from msilib.schema import CheckBox
 from flask_login import confirm_login
 from flask_wtf import Form
 from wtforms import SelectMultipleField, StringField, PasswordField
