@@ -2,7 +2,7 @@ alembic==1.12.1
 aniso8601==9.0.1
 annotated-types==0.6.0
 blinker==1.7.0
-cachelib==0.10.2
+cachelib==0.10.0
 certifi==2023.11.17
 charset-normalizer==3.3.2
 click==8.1.7
