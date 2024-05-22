@@ -14,7 +14,7 @@ Flask-SSLify==0.1.5
 Flask-WTF==1.2.1
 Flask-Minify==0.42
 Flask-Login==0.6.3
-Flask-SQLAlchemy==3.1.1
+Flask-SQLAlchemy==2.5.1
 Flask-Script==2.0.6
 flask-marshmallow==0.15.0
 greenlet==3.0.1
