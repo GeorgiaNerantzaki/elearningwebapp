@@ -2,7 +2,7 @@
 
 import os
 from flask import Flask, render_template
-#from   flask_migrate import Migrate
+from   flask_migrate import Migrate
 from   flask_minify  import Minify
 from   sys import exit
 from app.authentication.models import Users
@@ -41,7 +41,7 @@ def inject_app_data():
     }
     return {'app_data': app_data}
 
-#Migrate(app, db)
+Migrate(app, db)
 
 if not DEBUG:
     Minify(app=app, html=True, js=False, cssless=False)
