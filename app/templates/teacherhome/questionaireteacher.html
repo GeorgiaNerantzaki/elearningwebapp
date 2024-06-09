@@ -11,7 +11,7 @@
                     <a class="nav-link" href="{{url_for('teacherhome_blueprint.announcementsteacher', course_id = course.id)}}">Announcements</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="documentsteacher">Documents</a>
+                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.upload_document', course_id = course.id)}}">Documents</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{url_for('teacherhome_blueprint.addassignment', course_id = course.id)}}">Assignments</a>
