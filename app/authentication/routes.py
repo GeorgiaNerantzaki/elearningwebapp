@@ -16,12 +16,13 @@ from app.authentication.forms import LoginForm, CreateAccountForm
 from app.authentication.models import Users, Role
 from app.authentication.util import verify_pass
 
+#define default route
 @blueprint.route('/')
 def route_default():
     return redirect(url_for('authentication_blueprint.login'))
 
 
-
+#define login route
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     #logging.Logger.info('Hit Login')  
@@ -67,6 +68,7 @@ def user_has_role(role_name):
   
     return any(role.name == role_name for role in current_user.roles)
 
+#define register route
 @blueprint.route('/register', methods=['GET', 'POST'])
 # @roles_accepted('admin')
 def register():
@@ -111,27 +113,27 @@ def register():
     else:
         return render_template('accounts/register.html', form=create_account_form)
 
-
+#define logout route
 @blueprint.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('authentication_blueprint.login'))
-
+#retun 403 error handler
 @login_manager.unauthorized_handler
 def unauthorized_handler():
     return render_template('home/page-403.html'), 403
 
-
+#retun 403 error handler
 @blueprint.errorhandler(403)
 def access_forbidden(error):
     return render_template('home/page-403.html'), 403
 
-
+#retun 404 error handler
 @blueprint.errorhandler(404)
 def not_found_error(error):
     return render_template('home/page-404.html'), 404
 
-
+#retun 500 error handler
 @blueprint.errorhandler(500)
 def internal_error(error):
     return render_template('home/page-500.html'), 500

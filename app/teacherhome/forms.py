@@ -11,7 +11,7 @@ from flask_wtf.file import FileField, FileRequired, FileAllowed
 
 
 
-
+#define form to create a course
 class CreateCourseForm(Form):
     title = StringField('title',
                          id='title_create',
@@ -26,7 +26,7 @@ class CreateCourseForm(Form):
                          id='photo',
                          validators=[DataRequired()])
     
-
+#create form for announcements
 class CreateAnnouncementForm(Form):
      announcement_title = StringField('Announcement Title',
                          id='announcement_title_create',
@@ -42,7 +42,7 @@ class CreateAnnouncementForm(Form):
      #submit = SubmitField('Submit')
      
 
-
+#define forms to upload assignments
 class CreateAssignmentForm(Form):
      assignment_title = StringField('Assignments title',
                          id='assignment_title_create',
@@ -56,40 +56,40 @@ class CreateAssignmentForm(Form):
      course_id = IntegerField('Course ID', validators=[DataRequired()])
      
 
-
+#define form for students assessments and grades
 class GradeForm(FlaskForm):
     student_grade = StringField('Grade for Student ')
     submit = SubmitField('Submit')
      
     
-    
+#create a form to upload course material
 class FileUploadForm(FlaskForm):
     file = FileField('File', validators=[FileRequired(), FileAllowed(['pdf', 'docx', 'txt'], 'File types allowed: PDF, DOCX, TXT')])
     submit = SubmitField('Submit')
 
-
+#define a button to delete assignment
 class DeleteAssignment(FlaskForm):
     assignment_id = HiddenField('Assignment  ID', validators=[DataRequired()])
     submit = SubmitField('Submit')
  
 
-
+#define a form to create lectures and a question for the assessment
 class LectureForm(Form):
     title = StringField('Lecture Title', validators=[validators.DataRequired()])
     question_text = StringField('Question :', validators=[validators.DataRequired()])
     submit = SubmitField('Create Question')
     
 
-class LiveForm(Form):
-    title = StringField('Lecture Title', validators=[validators.DataRequired()])
-    submit = SubmitField('Create Form and Lecture')
+#class LiveForm(Form):
+ #   title = StringField('Lecture Title', validators=[validators.DataRequired()])
+  #  submit = SubmitField('Create Form and Lecture')
     
-
+#create a button to activate the likert scale live form
 class ActivateForm(FlaskForm):
     lecture_id = HiddenField('Lecture ID', validators=[DataRequired()])
     submit = SubmitField('Submit')
     
-
+#create a button to deactivate the likert scale live form
 class DeactivateForm(FlaskForm):
     lecture_id = HiddenField('Lecture ID', validators=[DataRequired()])
     submit = SubmitField('Submit')

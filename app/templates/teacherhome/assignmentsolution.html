@@ -2,9 +2,7 @@
 {% block metatags %} {% endblock %} 
 {% block content %}
 <div class="container-fluid">
-    <div class="row">
-  
-     
+    <div class="row">    
        <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
            <ul class="nav flex-column">
                <li class="nav-item">
@@ -50,10 +48,8 @@
                         <tbody>
                             {% for assignmentsolution in assignmentsolutions %}
                             <tr>
-
                                 <td><a href="#" target="_blank" title="{{ assignmentsolution.filename_solution }}" download>{{ assignmentsolution.filename_solution }}</a></td>
                                 <td>{{assignmentsolution.student}}</td>
-
                             </tr>
                             {% endfor %}
                         </tbody>

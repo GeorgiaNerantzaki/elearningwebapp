@@ -2,7 +2,6 @@
 {% block content %}
 <div class="container-fluid">
   <div class="row">
-
     <!-- Navigation -->
     <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
         <ul class="nav flex-column">
@@ -25,13 +24,10 @@
                 <a class="nav-link" href="{{url_for('home_blueprint.view_grade', course_id = course.id)}}">Grades</a>
             </li>
         </ul>
-    </div>
-
-   
+    </div>  
     <div class="col-md-9">
         <div class="jumbotron">
             <h1 class="display-4">Lectures</h1>
-
             <hr class="my-4">
             <div class="container">
                 <div class="row">
@@ -40,25 +36,19 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Lecture Title</th>
-
-
                                 </tr>
                             </thead>
                             <tbody>
                                 {%for lecture in lectures%}
                                 <tr>
                                     <td><a href="{{url_for('home_blueprint.submit_response', course_id = course.id, lecture_id = lecture.id)}}">{{lecture.title}}</a></td>
-
-
                                 </tr>
                                 {%endfor%}
-
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
         </div>
 </div>
 {% endblock %}

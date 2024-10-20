@@ -21,7 +21,7 @@ from uuid import uuid4
 
 
 
-
+#define index (students home page) url
 @blueprint.route('/index')
 #@login_required
 @roles_accepted('admin', 'student')

@@ -3,7 +3,6 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-  
        <!-- Navigation -->
        <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
            <ul class="nav flex-column">
@@ -29,13 +28,9 @@
                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.pass_grades', course_id = course.id)}}">Grades</a>
                </li>
            </ul>
-      </div>
-  
-      
+      </div>  
       <div class="col-md-9">
           <div class="jumbotron">
-
-
               <h1 class="display-4" align="center" style="font-weight:600">{{course.title}} </h1>
               <hr class="my-4">
               <p class="h5"><u>New Document</u></p>
@@ -46,36 +41,29 @@
                   <input type="submit" name="file" value="Upload">
                   </form>
                   <hr class="my-4">
-
                   <div class="container"><p class="text-center"><strong><u>Your latest documents</u></strong></p></div>
-
                   <div class="container">
                       <div class="row">
                           <div class="col-12">
                               <table class="table table-bordered">
                                   <thead>
                                       <tr>
-
-                                          <th scope="col">Document</th>
-                                          
+                                          <th scope="col">Document</th>                                         
                                           <th scope="col"><img src="https://cdn4.vectorstock.com/i/1000x1000/93/18/download-icon-for-web-app-logo-ui-vector-27559318.jpg" style="height:20px; width:20px;"></th>
                                         <th></th>
-
                                       </tr>
                                   </thead>
                                   <tbody>
                                       {% for document in documents %}
                                       <tr>
                                           <td><a href="#" target="_blank" title="{{ document.filename }}" download>{{ document.filename }}</a></td>
-
                                           <form method="POST" action="{{ url_for('teacherhome_blueprint.delete_document', course_id=course.id,document_id = document.id) }}">
                                               {{ form.csrf_token }}
                                               {{ form.hidden_tag() }}
-<td>
+                                             <td>
                                               <input type="submit" value="Delete Document" name="submit">
                                           </td>
                                           </form>
-
                                       </tr>
                                       {% endfor %}
                                   </tbody>

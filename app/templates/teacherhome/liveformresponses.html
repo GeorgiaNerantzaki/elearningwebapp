@@ -2,8 +2,6 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-
-
         <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
             <ul class="nav flex-column">
                 <li class="nav-item">
@@ -40,23 +38,17 @@
                     <form method="POST" action="{{ url_for('teacherhome_blueprint.activate_liveform', course_id=course.id, lecture_id = lecture.id) }}">
                         {{ activateform.csrf_token }}
                         {{ activateform.hidden_tag() }}
-
                         <input type="submit" value="Activate Form" name="submit">
-
                     </form>
                     {%endif%}
-
                     {%if lecture.lecture_activated == True%}
                     <p>Form Activated</p>
                     <form method="POST" action="{{ url_for('teacherhome_blueprint.deactivate_liveform', course_id=course.id, lecture_id = lecture.id) }}">
                         {{ deactivateform.csrf_token }}
                         {{ deactivateform.hidden_tag() }}
-
                         <input type="submit" value="Deactivate Form" name="submit">
-
                     </form>
                     {%endif%}
-
                     <h3>Lecture Statistics:</h3>
                     <p>Number of enrolled students:{{enrolled_students}}</p>
                     <p>Number or percentage of students that where present at the lecture: {{ response_count }}/{{enrolled_students}} or {{percentage_of_students}} %</p>
@@ -68,36 +60,24 @@
                     <table class="table table-bordered">
                         <thead><tr><th scope="col">Option</th><th scope="col">Counts</th></tr></thead>
                         <tbody>
-
-
                             {% for option, count in option_counts.items() %}
                             <tr>
                                 <td>{{ option }}</td>
                                 <td> {{ count }}</td>
                             </tr>
                             {% endfor %}
-
-
                         </tbody>
                     </table>
                     <hr class="my-4">
                     <h3>Questions from students</h3>
-
                     <table class="table table-bordered">
                         <thead><tr><th scope="col">Comments</th></tr></thead>
                         <tbody>
-
-
                             {%for feedback in feedback_from_students%}
                             <tr>
                                 <td>{{ feedback.comment }}</td>
-
                             </tr>
-
                             {%endfor%}
-
                         </tbody>
                     </table>
-
-
                     {% endblock %}

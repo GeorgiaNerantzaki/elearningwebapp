@@ -2,7 +2,7 @@
 
 
 from flask import Blueprint
-
+#deifne home blueprint
 blueprint = Blueprint(
     'home_blueprint',
     __name__,

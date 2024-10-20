@@ -3,8 +3,6 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-  
-
        <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
            <ul class="nav flex-column">
                <li class="nav-item">
@@ -29,13 +27,9 @@
                    <a class="nav-link" href="{{url_for('teacherhome_blueprint.pass_grades', course_id = course.id)}}">Grades</a>
                </li>
            </ul>
-      </div>
-  
-      
+      </div>     
        <div class="col-md-9">
            <div class="jumbotron">
-
-
                <h1 class="display-4" align="center" style="font-weight:600">{{course.title}} </h1>
                <hr class="my-4">
                <div class="container">
@@ -67,33 +61,19 @@
                                        </div>
                                        <input type="submit" name="assignmentsteacher" value="Add Assignment">
                                    </form>
-
-
-
                                </div>
                            </div>
-
                        </div>
                    </div>
-
-
                    <hr class="my-4">
                    {%for assignment in assignments%}
-                   <h3><u><a href="{{url_for('teacherhome_blueprint.assignmentsolution', course_id=course.id,assignment_id = assignment.id)}}">{{ assignment.assignment_title }}</a></u></h3>
-                  
-
-
-                  
+                   <h3><u><a href="{{url_for('teacherhome_blueprint.assignmentsolution', course_id=course.id,assignment_id = assignment.id)}}">{{ assignment.assignment_title }}</a></u></h3>                  
            <form method="POST" action="{{ url_for('teacherhome_blueprint.delete_assignment', course_id=course.id,assignment_id = assignment.id) }}">
                {{ deleteassignmentform.csrf_token }}
                {{ deleteassignmentform.hidden_tag() }}
-
                <input type="submit" value="Delete Assingment" name="submit">
-
            </form>
            {%endfor%}
-
-
        </div>
   </div>
 {% endblock %}

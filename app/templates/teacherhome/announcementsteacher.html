@@ -2,9 +2,7 @@
 {% block metatags %} {% endblock %} 
 {% block content %}
 <div class="container-fluid">
-    <div class="row">
-  
-    
+    <div class="row">    
       <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
           <ul class="nav flex-column">
               <li class="nav-item">
@@ -29,16 +27,12 @@
                   <a class="nav-link" href="{{url_for('teacherhome_blueprint.pass_grades', course_id = course.id)}}">Grades</a>
               </li>
           </ul>
-      </div>
-  
-      
+      </div>     
       <div class="col-md-9">
-        <div class="jumbotron">
-         
+        <div class="jumbotron">        
           <h1 class="display-4" align="center" style="font-weight:600"> </h1>
           <hr class="my-4">
           <h3><strong>Manage Announcements</strong></h3>
-
           <div class="container">
             <div class="row">
               <div class="col-12">
@@ -68,16 +62,10 @@
                             </div>
                             <input type="submit" name="announcementsteacher" value="send">
                         </form>
-
-
                     </div>
-                </div>
-              
+                </div>             
             </div>
-          </div>
-
-         
-          
+          </div>         
         </div>
       </div>
     </div>
