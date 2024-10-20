@@ -4,7 +4,7 @@ from app.database import db
 from datetime import datetime
 import time
 
-
+#define course table
 class Course(db.Model):
 
     __tablename__ = 'Courses'
@@ -49,7 +49,7 @@ def create_test_courses(app):
           db.session.add(course)
           app.logger.info('%s course created successfully',course.title)
        db.session.commit()     
-    
+#define enrollment table   
 class Enrollment(db.Model):
     __tablename__ = 'Enrollments'
     id = db.Column(db.Integer, primary_key=True)
@@ -60,7 +60,7 @@ class Enrollment(db.Model):
     user = db.relationship('Users', back_populates='courses')
     course = db.relationship('Course', back_populates='enrollments')
     
-
+#define announcement table
 class Announcement(db.Model):
     __tablename__ = 'Announcements'
     id = db.Column(db.Integer, primary_key=True)
@@ -75,7 +75,7 @@ class Announcement(db.Model):
     def __repr__(self):
         return str(self.announcement_title)
 
-
+#define document table
 class Document(db.Model):
     __tablename__ = 'Documents' 
     id = db.Column(db.Integer, primary_key=True)
@@ -90,7 +90,7 @@ class Document(db.Model):
 
 
     
-    
+#define assignment table    
 class Assignment(db.Model):
     __tablename__ = 'Assignment'
     id = db.Column(db.Integer, primary_key=True)
@@ -103,7 +103,7 @@ class Assignment(db.Model):
     def __repr__(self):
         return str(self.assignment_title)
     
-
+#define assignment solution table
 class AssignmentSolution(db.Model):
     __tablename__ = 'Assignment_Solutions' 
     id = db.Column(db.Integer, primary_key=True)
@@ -118,7 +118,7 @@ class AssignmentSolution(db.Model):
     def __repr__(self):
         return str(self.filename)
     
-
+#define lecture table
 class Lecture(db.Model):
     __tablename__ = 'Lectures'
     id = db.Column(db.Integer, primary_key=True)
@@ -135,7 +135,7 @@ def __repr__(self):
 
  
 
-
+#define responses for the assessment table
 class Responses(db.Model):
     __tablename__ = 'Responses'
     id = db.Column(db.Integer, primary_key=True)
@@ -158,7 +158,7 @@ class Responses(db.Model):
         return str(self.response_value) 
     
 
-
+#define responses for the likert live form  table
 class Lectureresponses(db.Model):
     __tablename__ = 'Responses during the lecture'
     id = db.Column(db.Integer, primary_key=True)
@@ -180,7 +180,7 @@ class Lectureresponses(db.Model):
         return str(self.response_value) 
 
 
-
+#define feedback(or questions) table
 class FeedbackComment(db.Model):
     __tablename__ = 'Feedback Comments'
     id = db.Column(db.Integer, primary_key=True)

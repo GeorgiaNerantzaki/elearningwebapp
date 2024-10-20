@@ -1,9 +1,7 @@
 {% extends "home/layout.html" %}
 {% block content %}
 <div class="container-fluid">
-    <div class="row">
-
-      
+    <div class="row">      
         <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
             <ul class="nav flex-column">
                 <li class="nav-item">
@@ -25,8 +23,7 @@
                     <a class="nav-link" href="{{url_for('home_blueprint.view_grade', course_id = course.id)}}">Grades</a>
                 </li>
             </ul>
-        </div>
-         
+        </div>        
         <div class="col-md-9">
             <div class="jumbotron">
                 <h1 class="display-4" align="center" style="font-weight:600">{{course.title}} </h1>
@@ -36,12 +33,10 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <form method="POST">
-                                
+                            <form method="POST">                               
                                 {% if lecture %}
                                 <div>
-                                    <label>{{ lecture.question_text }}</label><br>
-                                    
+                                    <label>{{ lecture.question_text }}</label><br>                                   
                                     <input type="radio" name="response_{{ lecture.id }}" value="Strongly Disagree"> Strongly Disagree
                                     <input type="radio" name="response_{{ lecture.id }}" value="Disagree"> Disagree
                                     <input type="radio" name="response_{{ lecture.id }}" value="Neutral"> Neutral

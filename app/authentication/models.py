@@ -6,11 +6,11 @@ from app.authentication.util import hash_pass
 from flask_security import UserMixin, RoleMixin
 
 from app.teacherhome.models import Course
-
+#define a table that consisits of roles id and users id 
 roles_users = db.Table('roles_users',
         db.Column('user_id', db.Integer(), db.ForeignKey('Users.id')),
         db.Column('role_id', db.Integer(), db.ForeignKey('Roles.id')))    
-
+#define Users table
 class Users(db.Model, UserMixin):
 
     __tablename__ = 'Users'
@@ -53,7 +53,7 @@ class Role(db.Model, RoleMixin):
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(80), unique=True)
     
-
+#create test users meaning that users are predefined for ease purposes in development when we restart the application with a new database
 def create_test_users(app):
              if Role.query.count() == 0:
                  test_roles = [
@@ -85,12 +85,12 @@ def create_test_users(app):
                  db.session.commit()
                  
             
-                 
+ #loads the user based on ID            
 @login_manager.user_loader
 def user_loader(id):
     return Users.query.filter_by(id=id).first()
 
-
+#loads user based on username in a post request
 @login_manager.request_loader
 def request_loader(request):
     username = request.form.get('username')

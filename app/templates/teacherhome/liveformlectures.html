@@ -2,7 +2,6 @@
 {% block content %}
 <div class="container-fluid">
   <div class="row">
-
     <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
         <ul class="nav flex-column">
             <li class="nav-item">
@@ -27,13 +26,10 @@
                 <a class="nav-link" href="{{url_for('teacherhome_blueprint.pass_grades', course_id = course.id)}}">Grades</a>
             </li>
         </ul>
-    </div>
-
-   
+    </div>  
     <div class="col-md-9">
         <div class="jumbotron">
             <h1 class="display-4">View Student responses for each lecture</h1>
-
             <hr class="my-4">
             <div class="container">
                 <div class="row">
@@ -42,26 +38,19 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Lecture Title</th>
-
-
                                 </tr>
                             </thead>
                             <tbody>
                                 {%for lecture in lectures%}
                                 <tr>
                                     <td><a href="{{url_for('teacherhome_blueprint.liveform_responses', course_id = course.id, lecture_id = lecture.id)}}">{{lecture.title}}</a></td>
-
-
                                 </tr>
-
-                                {%endfor%}
-                                
+                                {%endfor%}                               
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
         </div>
 </div>
 {% endblock %}

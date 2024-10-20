@@ -2,7 +2,6 @@
 {% block content %}
 <div class="container-fluid">
   <div class="row">
-
     <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
         <ul class="nav flex-column">
             <li class="nav-item">
@@ -24,19 +23,12 @@
                 <a class="nav-link disabled" href="#">Grades</a>
             </li>
         </ul>
-
     </div>
-
     <div class="col-md-9">
-
       <div class="jumbotron">
-        
-
         <h1 class="display-4" align="center" style="font-weight:400">{{course.title}}</h1>
-
         <hr class="my-4">
         <div class="container"><p class="text-center"><strong><u>Grades</u></strong></p></div>
-
        <div class="container" style="border:1px solid black;">
                 <div class="row" >
                     {% if grade %}
@@ -49,10 +41,8 @@
                     {% endif %}
                 </div>
               </div>
-
           </div>
     </div>
   </div>
-
 </div>
 {% endblock %}

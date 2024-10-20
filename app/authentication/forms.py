@@ -10,7 +10,7 @@ from flask_bootstrap5 import Bootstrap
 
 
 
-
+#define Login form
 class LoginForm(Form):
     username = StringField('Email',
                          id='username_login',
@@ -18,11 +18,11 @@ class LoginForm(Form):
     password = PasswordField('Password',
                              id='pwd_login',
                              validators=[DataRequired()])
-
+#define chackbox field for picking a role in the registration proccess
 class MultiCheckboxField(SelectMultipleField):
     widget = ListWidget(prefix_label=False)
     option_widget = CheckboxInput()
-    
+#deifne registration form  
 class CreateAccountForm(Form):
     username = StringField('Username',
                          id='username_create',

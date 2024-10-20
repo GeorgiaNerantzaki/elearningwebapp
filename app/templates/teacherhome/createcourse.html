@@ -1,35 +1,25 @@
 {% extends 'teacherhome/layout.html' %}
-
 {% block content %}
 <h2>CreateCourse</h2>
-
 <form method="post">
-
     {{ form.hidden_tag }}
     {{ form.csrf_token }}
     <div>
-
         {{ form.title.label }}
         {{ form.title(class="form-control") }}
     </div>
     <div>
-
         {{ form.semester.label }}
         {{ form.semester(class="form-control") }}
     </div>
-
     <div>
-
         {{ form.photo.label }}
         {{ form.photo(class="form-control") }}
     </div>
-
     <div>
         {{ form.description.label }}
         {{ form.description(class="form-control") }}
     </div>
-
     <input type="submit" name="createcourse" value="CreateCourse">
 </form>
-
 {% endblock %}

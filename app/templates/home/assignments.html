@@ -1,9 +1,7 @@
 {% extends "home/layout.html" %}
 {% block content %}
 <div class="container-fluid">
-    <div class="row">
-
-        
+    <div class="row">        
         <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
             <ul class="nav flex-column">
                 <li class="nav-item">
@@ -26,15 +24,12 @@
                     <a class="nav-link" href="{{url_for('home_blueprint.view_grade', course_id = course.id)}}">Grades</a>
                 </li>
             </ul>
-        </div>
-
-        
+        </div>        
         <div class="col-md-9">
             <div class="jumbotron">
                 <h1 class="display-4" align="center" style="font-weight:600">{{course.title}}</h1>
                 <hr class="my-4">
                 <div class="container"><p class="text-center"><strong><u>Assignments</u></strong></p></div>
-
                 {%for assignment in assignments%}
                 <div class="container">
                     <div class="row">
@@ -43,35 +38,27 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">{{assignment.assignment_title}}</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                     <tr>
-
                                         <td>
                                             <p><strong>Description:</strong><span>{{assignment.assignment_desc}} </span></p><br>
                                             <p><strong>Max Grade:</strong><span>10</span></p><br>
                                             <p><strong>Deadline:</strong><span>Date until {{assignment.deadline_date}} </span></p><br>
-
                                         </td>
-
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
                 </div>
-
                 <form method="POST" action="{{ url_for('home_blueprint.upload_solution', course_id=course.id, assignment_id = assignment.id) }}" enctype="multipart/form-data">
                     {{ form.csrf_token }}
                     {{ form.solution.label }}
                     {{ form.solution }}
                     <input type="submit" name="file" value="Upload">
                 </form>
-
             </div>
         </div>
         {%endfor%}
