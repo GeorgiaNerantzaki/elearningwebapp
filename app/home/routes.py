@@ -16,14 +16,13 @@ from pytz import utc
 import time
 import threading
 from uuid import uuid4
-# from datetime import datetime, timedelta, timezone
 
 
 
+#urls that students have access only
 
-
+#student index page url
 @blueprint.route('/index')
-#@login_required
 @roles_accepted('admin', 'student')
 def index():
     form = Unenroll()
@@ -34,9 +33,8 @@ def index():
         enrolled_courses = []
     return render_template('home/index.html', segment='index',form=form,enrolled_courses=enrolled_courses)
 
-
+#for loading templates
 @blueprint.route('/<template>')
-#@login_required
 def route_template(template):
 
    
@@ -70,7 +68,7 @@ def route_template(template):
         current_app.logger.error(f"Unhandled exception: {e}")
         return render_template('home/page-500.html'), 500
 
-
+#all courses page for students to enroll 
 @blueprint.route('/allcourses')
 @roles_accepted('admin', 'student')
 def all_courses():
@@ -78,7 +76,7 @@ def all_courses():
       form = Enroll()
       return render_template('home/allcourses.html', alL_courses=all_courses, form=form)
 
-
+#course details (description etc)
 @blueprint.route('/coursedetails/<int:course_id>')
 @roles_accepted('admin', 'student')
 def coursedetails(course_id):
@@ -89,7 +87,7 @@ def coursedetails(course_id):
  lecture = Lecture.query.get(course_id)
  return render_template('home/coursedetails.html',coursedetails = coursedetails, assignment =assignment,course = course,lecture =lecture)
 
-
+#announcement page
 @blueprint.route('/announcements/<int:course_id>')
 @roles_accepted('admin', 'student')
 def announcements(course_id):
@@ -104,7 +102,7 @@ def announcements(course_id):
 
 
 
-
+#assignment page
 @blueprint.route('/view_assignment/<int:course_id>', methods=['GET','POST'])
 @roles_accepted('admin','student')
 def view_assignment(course_id):
@@ -125,27 +123,10 @@ def view_assignment(course_id):
         
         return "You are not enrolled in this course", 403
     
-    # if request.method == 'POST' and form.validate_on_submit():
-    #     uploaded_file = form.file.data
-
-    #   
-    #     directory = '/media/studentsolutions'
-    #     if not os.path.exists(directory):
-    #         os.makedirs(directory)
-
-    #     file_path = os.path.join(directory, secure_filename(uploaded_file.filename))
-    #     uploaded_file.save(file_path)
-
-         
-    #     document = AssignmentSolution(filename_solution=secure_filename(uploaded_file.filename), course_id=course_id)
-    #     db.session.add(document)
-    #     db.session.commit()
-
-    #     return redirect(url_for('teacherhome_blueprint.upload_document', course_id=course_id))
 
     return render_template('home/assignments.html',assignments=assignments, course = course, form = form,lecture = lecture)
 
-
+#url for saving the files for assignment from the students(its a button)
 @blueprint.route('/upload_solution/<int:course_id>/<int:assignment_id>', methods=['GET','POST'])
 @roles_accepted('admin','student')
 def upload_solution(course_id,assignment_id):
@@ -175,7 +156,7 @@ def upload_solution(course_id,assignment_id):
         return redirect(url_for('home_blueprint.view_assignment', course_id=course_id))
     
     
-
+#enroll button
 @blueprint.route('/enroll_course/<int:course_id>', methods=['POST'])
 @roles_accepted('admin', 'student')
 def enroll_course(course_id):
@@ -189,7 +170,7 @@ def enroll_course(course_id):
     flash('You enrolled successfully','success')
     return redirect(url_for('home_blueprint.all_courses',course_id = course_id))
 
-
+#unenroll button
 @blueprint.route('/unenroll_course/<int:course_id>', methods=['POST'])
 @roles_accepted('admin', 'student')
 def unenroll_course(course_id):
@@ -204,7 +185,7 @@ def unenroll_course(course_id):
 
   
 
-
+#course material page
 @blueprint.route('/view_documents/<int:course_id>')
 @roles_accepted('admin', 'student')
 def view_documents(course_id):
@@ -214,7 +195,7 @@ def view_documents(course_id):
  lecture = Lecture.query.get(course_id)
  return render_template('home/documents.html',viewdocuments = viewdocuments, course = course,lecture = lecture)
 
-
+#grades page
 @blueprint.route('/view_grade/<int:course_id>')
 @roles_accepted('admin', 'student')
 def view_grade(course_id):
@@ -228,9 +209,8 @@ def view_grade(course_id):
   
 
 
-
+#list of lectures in links
 @blueprint.route('/view_lectures/<int:course_id>')
-#@login_required
 @roles_accepted('admin', 'student')
 def view_lectures(course_id):
       
@@ -240,7 +220,7 @@ def view_lectures(course_id):
     lectures = Lecture.query.filter_by(course_id = course_id).all()
     return render_template('home/questionaire.html',  lectures = lectures, course =course,assignment =assignment,lecture = lecture )
 
-
+#saves students response in the quiz
 @blueprint.route('/submit_response/<int:course_id>/<int:lecture_id>', methods=['GET', 'POST'])
 @roles_accepted('admin', 'student')
 def submit_response(course_id,lecture_id):
@@ -271,7 +251,7 @@ def submit_response(course_id,lecture_id):
 
 
 
-
+#saves real time response during the lecture and the questions
 @blueprint.route('/live_response/<int:course_id>/<int:lecture_id>', methods=['GET', 'POST'])
 @roles_accepted('admin', 'student')
 def live_response(course_id, lecture_id):
@@ -280,8 +260,7 @@ def live_response(course_id, lecture_id):
      form = FeedbackForm()
      response_value = None
      
-     # if not lecture.lecture_activated:
-     #    flash('Form is not active', 'info')
+
      if request.method == 'POST':
           response_value = request.form.get(f'response_{lecture.id}')
           existing_response = Lectureresponses.query.filter_by(user_id=current_user.id, course_id=course_id,lecture_id = lecture_id).first()
@@ -308,9 +287,8 @@ def live_response(course_id, lecture_id):
 
      return render_template('home/liveform.html', course=course,lecture = lecture,response_value =response_value, form = form)
 
-
+#shows all the lectures in links similar to view_lectures
 @blueprint.route('/liveformlectures/<int:course_id>')
-#@login_required
 @roles_accepted('admin', 'student')
 def liveformlectures(course_id):
   
