@@ -9,7 +9,7 @@ import binascii
 
 
 
-
+#password hashing function of login 
 def hash_pass(password):
     """Hash a password for storing."""
 
@@ -19,7 +19,7 @@ def hash_pass(password):
     pwdhash = binascii.hexlify(pwdhash)
     return (salt + pwdhash) 
 
-
+#password verify for register
 def verify_pass(provided_password, stored_password):
     """Verify a stored password against one provided by user"""
 
