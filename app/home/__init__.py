@@ -2,7 +2,7 @@
 
 
 from flask import Blueprint
-
+#define student's blueprint
 blueprint = Blueprint(
     'home_blueprint',
     __name__,
