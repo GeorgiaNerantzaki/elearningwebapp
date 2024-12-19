@@ -25,7 +25,7 @@ import time
 from datetime import datetime, timedelta
 from uuid import uuid4
 
-
+#teacher's index page
 @blueprint.route('/teacher')
 @roles_accepted('admin','teacher')
 def index():
@@ -34,9 +34,8 @@ def index():
    
     teacher_courses = Course.query.filter_by(proffessor=current_user.username).all()
     return render_template('teacherhome/teacherindex.html', segment ='teacherindex', teacher_courses = teacher_courses)
-
+#for templates
 @blueprint.route('teacher/<template>')
-#@login_required 
 @roles_accepted('admin', 'teacher')
 def route_template(template):
 
@@ -60,7 +59,7 @@ def route_template(template):
 
 
 
-
+#shows the course details 
 @blueprint.route('teacher/courseteacher/<int:course_id>')
 @roles_accepted('admin','teacher')
 def courseteacher(course_id):
@@ -69,7 +68,7 @@ def courseteacher(course_id):
  return render_template('teacherhome/courseteacher.html',courseteacher =  courseteacher)
 
 
-
+#form to create a new course
 @blueprint.route('teacher/createcourse', methods=['GET', 'POST'])
 @roles_accepted('admin', 'teacher')
 def createcourse():
@@ -102,7 +101,7 @@ def createcourse():
 
     else:
         return render_template('teacherhome/createcourse.html', form=form)
-    
+#page for posting announcements 
 @blueprint.route('/teacher/announcementsteacher/<int:course_id>', methods=['GET', 'POST'])
 @roles_accepted('admin', 'teacher')
 def announcementsteacher(course_id):
@@ -143,7 +142,7 @@ def announcementsteacher(course_id):
 
 
 
-
+#page to upload course material
 @blueprint.route('teacher/documentsteacher/<int:course_id>', methods = ['GET','POST'])
 @roles_accepted('admin', 'teacher')
 def upload_document(course_id):
@@ -181,7 +180,7 @@ def upload_document(course_id):
    
 
 
-
+#for delete document button
 @blueprint.route('teacher/delete_document/<int:course_id>/<int:document_id>', methods=['POST'])
 @roles_accepted('admin', 'teacher')
 def delete_document(course_id,document_id):
@@ -196,7 +195,7 @@ def delete_document(course_id,document_id):
     
 
 
-
+#for delete assignment button
 @blueprint.route('/delete_assignment/<int:course_id>/<int:assignment_id>', methods=['POST'])
 @roles_accepted('admin', 'teacher')
 def delete_assignment(course_id,assignment_id):
@@ -218,7 +217,7 @@ def delete_assignment(course_id,assignment_id):
 
 
 
-
+#page for creating assignments
 @blueprint.route('teacher/assignmentsteacher/<int:course_id>', methods=['GET', 'POST'])
 @roles_accepted('admin', 'teacher')
 def addassignment(course_id):
@@ -258,12 +257,11 @@ def addassignment(course_id):
                                deleteassignmentform =deleteassignmentform,
                                form=form)
 
-    # else:
-    #     return render_template('teacherhome/assignmentsteacher.html', form=form ,deleteassignmentform=deleteassignmentform ,course=course,assignments =assignments)
+ 
     
 
 
-
+#page to view student's uploaded solutions for assignments
 @blueprint.route('teacher/assignmentsolution/<int:course_id>/<int:assignment_id>')
 @roles_accepted('admin', 'teacher')
 def assignmentsolution(course_id,assignment_id):
@@ -272,7 +270,7 @@ def assignmentsolution(course_id,assignment_id):
     assignmentsolutions = AssignmentSolution.query.filter_by(course_id = course_id,assignment_id = assignment_id ).all()
     return render_template('teacherhome/assignmentsolution.html',assignmentsolutions =assignmentsolutions,course =course,assignment =assignment)
 
-
+#shows all lectures
 @blueprint.route('teacher/lectures/<int:course_id>')
 @roles_accepted('admin', 'teacher')
 def lectures(course_id):
@@ -280,7 +278,7 @@ def lectures(course_id):
     lectures = Lecture.query.filter_by(course_id = course_id).all()
     return render_template('teacherhome/lecturesteacher.html',  lectures = lectures, course =course )
 
-
+#shows students responses to the quiz
 @blueprint.route('/questionaire_responses/<int:course_id>/<int:lecture_id>')
 @roles_accepted('admin', 'teacher')
 def questionaire_responses(course_id, lecture_id):
@@ -309,12 +307,11 @@ def questionaire_responses(course_id, lecture_id):
 
 
     
-
+# shows table with real time responses and students questions
 @blueprint.route('teacher/liveform_responses/<int:course_id>/<int:lecture_id>')
 @roles_accepted('admin', 'teacher')
 def liveform_responses(course_id,lecture_id):
     course = Course.query.get(course_id)
-    # lecture = Lecture.query.get(course_id)
     feedback_from_students = FeedbackComment.query.filter_by(course_id = course_id,lecture_id = lecture_id).all()
     lecture = Lecture.query.filter_by(course_id=course_id, id=lecture_id).first()
     activateform = ActivateForm()
@@ -337,7 +334,7 @@ def liveform_responses(course_id,lecture_id):
     return render_template('teacherhome/liveformresponses.html',course = course, liveresponses=liveresponses, 
                            response_count=response_count, mode_response=mode_response,mean_response =mean_response,option_counts =option_counts, lecture = lecture,activateform =activateform,deactivateform =deactivateform, enrolled_students =enrolled_students,percentage_of_students = percentage_of_students,low_responses_count = low_responses_count,low_responses_percentage =low_responses_percentage,feedback_from_students =feedback_from_students)
 
-
+#for passing grades to students
 @blueprint.route('teacher/pass_grades/<int:course_id>', methods=['GET', 'POST'])
 @roles_accepted('admin', 'teacher')
 def pass_grades(course_id):
@@ -358,13 +355,12 @@ def pass_grades(course_id):
     
     return render_template('teacherhome/gradesteacher.html', form=form,course=course, enrolled_students=enrolled_students)
 
-
+#for creating a lecture and adding the quiz's question
 @blueprint.route('teacher/create_lecture/<int:course_id>', methods=['GET', 'POST'])
 @roles_accepted('admin', 'teacher')
 def create_lecture(course_id):
          form = LectureForm(request.form)
          course = Course.query.get(course_id)
-         #new_lecture = None
          if request.method == 'POST' and form.validate():
          
            lecture_title = form.title.data
@@ -376,10 +372,10 @@ def create_lecture(course_id):
 
           
            return redirect(url_for('teacherhome_blueprint.create_lecture', course_id = course_id)) 
-         #if request.method == 'GET':
+         
          
          return render_template('teacherhome/questionaireteacher.html', form=form,course =course)
-
+#not used in the app I forgot it here hahahh
 @blueprint.route('teacher/create_liveform/<int:course_id>', methods=['GET', 'POST'])
 @roles_accepted('admin', 'teacher')
 def create_liveform(course_id):
@@ -396,11 +392,11 @@ def create_liveform(course_id):
 
           
            return redirect(url_for('teacherhome_blueprint.create_liveform', course_id = course_id)) 
-         #if request.method == 'GET':
+         
          
          return render_template('teacherhome/createliveform.html', form=form,course =course)
 
-
+#the teacher choose when students can provide feedback for the lecture so this is for the activate form button
 @blueprint.route('teacher/activate_liveform/<int:course_id>/<int:lecture_id>', methods=['GET', 'POST'])
 @roles_accepted('admin', 'teacher')
 def activate_liveform(course_id,lecture_id):
@@ -419,7 +415,7 @@ def activate_liveform(course_id,lecture_id):
         
     
     
-    
+#for deactivating the form  
 @blueprint.route('teacher/deactivate_liveform/<int:course_id>/<int:lecture_id>', methods=['GET', 'POST'])
 @roles_accepted('admin', 'teacher')
 def deactivate_liveform(course_id,lecture_id):
@@ -429,7 +425,7 @@ def deactivate_liveform(course_id,lecture_id):
     db.session.commit()
     flash('Form deactivated successfully !', 'success')
     return redirect(url_for('teacherhome_blueprint.liveform_responses', course_id=course_id, lecture_id=lecture_id))
-
+#shows all lectures    
 @blueprint.route('teacher/liveformlectures/<int:course_id>')
 @roles_accepted('admin', 'teacher')
 def liveformlectures(course_id):
