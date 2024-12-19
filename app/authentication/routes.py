@@ -15,13 +15,13 @@ from app.authentication import blueprint
 from app.authentication.forms import LoginForm, CreateAccountForm
 from app.authentication.models import Users, Role
 from app.authentication.util import verify_pass
-
+#define default url
 @blueprint.route('/')
 def route_default():
     return redirect(url_for('authentication_blueprint.login'))
 
 
-
+#login url
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     #logging.Logger.info('Hit Login')  
@@ -66,9 +66,8 @@ def user_has_role(role_name):
 
   
     return any(role.name == role_name for role in current_user.roles)
-
+#define sign up url
 @blueprint.route('/register', methods=['GET', 'POST'])
-# @roles_accepted('admin')
 def register():
     create_account_form = CreateAccountForm(request.form)
     create_account_form.roles.choices = [(role.id, role.name) for role in Role.query.all()]
@@ -78,7 +77,7 @@ def register():
         email = request.form['email']
         password = request.form['password']
         roles_selected = create_account_form.roles.data
-        #confirm_password= request.form['confirm']
+        
         
         user = Users.query.filter_by(username=username).first()
         if user:
@@ -96,7 +95,7 @@ def register():
                                    form=create_account_form)
 
         
-        #user = Users(**request.form) 
+       
         user = Users(username=username, email=email, password=password) 
         user.roles = Role.query.filter(Role.id.in_(roles_selected)).all()
         user.active = True 
@@ -111,12 +110,12 @@ def register():
     else:
         return render_template('accounts/register.html', form=create_account_form)
 
-
+#log out url
 @blueprint.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('authentication_blueprint.login'))
-
+#load error 403 template
 @login_manager.unauthorized_handler
 def unauthorized_handler():
     return render_template('home/page-403.html'), 403
@@ -126,7 +125,7 @@ def unauthorized_handler():
 def access_forbidden(error):
     return render_template('home/page-403.html'), 403
 
-
+#error 404
 @blueprint.errorhandler(404)
 def not_found_error(error):
     return render_template('home/page-404.html'), 404
