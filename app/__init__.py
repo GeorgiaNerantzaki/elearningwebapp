@@ -16,18 +16,18 @@ from app.teacherhome.models import Course, Enrollment, Announcement, Assignment,
 from app.teacherhome.forms import CreateCourseForm, CreateAnnouncementForm, CreateAssignmentForm, GradeForm
 from app.database import db, login_manager
 from app.home.forms import FeedbackForm
-
+#register extension
 def register_extensions(app):
     db.init_app(app)
     login_manager.init_app(app)
     user_datastore = SQLAlchemySessionUserDatastore(db.session, Users, Role)
     security = Security(app, user_datastore)
-            
+#register blueprints            
 def register_blueprints(app):
     for module_name in ('authentication', 'home', 'teacherhome'):
         module = import_module('app.{}.routes'.format(module_name))
         app.register_blueprint(module.blueprint)
-
+#database configuration and uri
 def configure_database(app):
     def initialize_database():
         try:
@@ -47,12 +47,12 @@ def configure_database(app):
             db.create_all()
     initialize_database()
     
-
+#database clean up
     @app.teardown_request
     def shutdown_session(exception=None):
         db.session.remove() 
 
-
+#create flask apps instance or factory
 def create_app(config):
     logging.basicConfig(filename='record.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
    
@@ -66,24 +66,6 @@ def create_app(config):
     configure_database(app)
     app.logger.info('Configure database')
     app.secret_key = 'your_secret_key'
-    #app.config['UPLOAD_FOLDER'] = 'static/files'
-    # def has_no_empty_params(rule):
-    #     defaults = rule.defaults or {}  # Use an empty dictionary if defaults is None
-    #     return all(defaults.get(arg) is not None for arg in rule.arguments)
-
-    # @app.route("/site-map")
-    # def site_map():
-    #     links = []
-    #     for rule in app.url_map.iter_rules():
-    #         # Filter out rules we can't navigate to in a browser
-    #         # and rules that require parameters
-    #         if "GET" in rule.methods and has_no_empty_params(rule):
-    #             url = url_for(rule.endpoint, **(rule.defaults or {}))
-    #             links.append((url, rule.endpoint))
-    #             app.logger.info('URL "' + url + '" on rule.endpoint "' + rule.endpoint + '"')        
-    #     if not current_user.is_authenticated:
-    #        return render_template('login.html',
-    #                   form=LoginForm)
-    #     return redirect(url_for('home_blueprint.index'))
+  
             
     return app
