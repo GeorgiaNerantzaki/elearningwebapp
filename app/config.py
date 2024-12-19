@@ -7,7 +7,7 @@ class Config(object):
     basedir = os.path.abspath(os.path.dirname(__file__))
   
    
-   
+   #secret_key configuration
     SECRET_KEY  = os.getenv('SECRET_KEY', None)
     if not SECRET_KEY:
         SECRET_KEY = ''.join(random.choice( string.ascii_lowercase  ) for i in range( 32 ))     
@@ -20,7 +20,7 @@ class Config(object):
     DB_HOST     = os.getenv('DB_HOST'     , None)
     DB_PORT     = os.getenv('DB_PORT'     , None)
     DB_NAME     = os.getenv('DB_NAME'     , None)
-
+#uses SQLite dbms
     USE_SQLITE  = True 
 
 
@@ -44,7 +44,7 @@ class Config(object):
 
             print('> Error:     DBMS Exception: ' + str(e) )
             print('> Fallback to SQLite ')    
-
+#database configuaretion
     if USE_SQLITE:
 
         
