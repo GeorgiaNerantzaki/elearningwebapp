@@ -1,16 +1,15 @@
 # -*- encoding: utf-8 -*-
 
-#from flask_login import UserMixin
+#define database models here (or tables)
 from app.database import db, login_manager
 from app.authentication.util import hash_pass
 from flask_security import UserMixin, RoleMixin
-
 from app.teacherhome.models import Course
-
+#table that connects the users and the roles
 roles_users = db.Table('roles_users',
         db.Column('user_id', db.Integer(), db.ForeignKey('Users.id')),
         db.Column('role_id', db.Integer(), db.ForeignKey('Roles.id')))    
-
+#User model
 class Users(db.Model, UserMixin):
 
     __tablename__ = 'Users'
@@ -85,12 +84,12 @@ def create_test_users(app):
                  db.session.commit()
                  
             
-                 
+#loads the user after login           
 @login_manager.user_loader
 def user_loader(id):
     return Users.query.filter_by(id=id).first()
 
-
+#function to load the user session after the login 
 @login_manager.request_loader
 def request_loader(request):
     username = request.form.get('username')
