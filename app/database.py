@@ -6,6 +6,6 @@ from flask_login import LoginManager, login_manager, login_user, current_user
 
 class Base(DeclarativeBase):
   pass
-#intergrate SQLalchemy pachage and Login manager for login sessions
+#intergrate SQLalchemy package and Login manager for login sessions
 db = SQLAlchemy(model_class=Base)
 login_manager = LoginManager()
