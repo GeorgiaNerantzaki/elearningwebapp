@@ -1,10 +1,8 @@
 {% extends "home/layout.html" %}
-
 {% block content %}
+<!--nav side bar-->
 <div class="container-fluid">
     <div class="row">
-
-        
         <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
             <ul class="nav flex-column">
                 <li class="nav-item">
@@ -26,32 +24,23 @@
                     <a class="nav-link" href="{{url_for('home_blueprint.view_grade', course_id = course.id)}}">Grades</a>
                 </li>
             </ul>
-        </div>
-
-        
+        </div>   
+        <!--real time feedback form -->
         <div class="col-md-9">
             <div class="jumbotron">
                 <h1 class="display-4" align="center" style="font-weight:600">{{course.title}} </h1>
                 <h4 class="display-4" align="center" >Live Form</h4>
                 <h5 class="display-4" align="center" >{{lecture.title}} </h5>
-
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-
-
-
-
                         </div>
-
                         {% if lecture.lecture_activated %}
                         <p class="h6">Scale is 1 ("I dont understand anything") to 5 (I undestand completely the concept of the lecture).You can submit as many times as you wish</p>
                         <form id="response_form" method="POST">
-
                             {% if course %}
                             <div>
                                 <label></label><br>
-
                                 <input type="radio" name="response_{{ lecture.id }}" value="1"> 1
                                 <input type="radio" name="response_{{ lecture.id }}" value="2"> 2
                                 <input type="radio" name="response_{{ lecture.id }}" value="3"> 3
@@ -61,15 +50,12 @@
                             {% endif %}
                             <input type="submit" value="Submit">
                         </form>
-
+                        <!--optional form for anomymous questions-->
                         <form method="POST">
                             {{ form.hidden_tag() }}
-
                             <div>
-
                                 {{ form.comment_field.label }}
                                 {{ form.comment_field(class="form-control") }}
-
                             </div>
                             <input type="submit" value="Submit ">
                         </form>
