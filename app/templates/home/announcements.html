@@ -1,9 +1,8 @@
 {% extends "home/layout.html" %}
 {% block content %}
+<!--navigation side bar-->
 <div class="container-fluid">
     <div class="row">
-
-
         <div class="col-md-3" style="border: 1px solid black; height: 100%; margin-top:130px;">
             <ul class="nav flex-column">
                 <li class="nav-item">
@@ -26,18 +25,14 @@
                 </li>
             </ul>
         </div>
-
-
         <div class="col-md-9">
             <div class="jumbotron">
-
-
                 <h1 class="display-4" align="center" style="font-weight:600">{{course.title}} </h1>
                 <hr class="my-4">
                 <div class="container"><p class="text-center"><strong><u>Announcements</u></strong></p></div>
-
                 <div class="container">
                     <div class="row">
+                        <!-- Announcement table-->
                         <div class="col-12">
                             <table class="table table-bordered">
                                 <thead>
