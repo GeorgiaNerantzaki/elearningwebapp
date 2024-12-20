@@ -4,10 +4,8 @@
 <hr class="my-4">
 <div class="container mt-5">
     <div class="row">
-
         {% for course in alL_courses %}
-        
-
+        <!--all courses show here-->
         <form method="POST" action="{{ url_for('home_blueprint.enroll_course', course_id=course.id) }}">
             {{ form.hidden_tag() }}
             {{ form.course_id(value=course.id) }}
@@ -19,15 +17,10 @@
                         <p class="card-text">{{ course.title }}</p>
                         <p class="card-text">{{ course.proffessor }}</p>
                         <input type="submit" value="Enroll on {{ course.title }}" name="submit_{{ course.id }}">
-
                     </div>
                 </div>
             </div>
-
-        </form>
-
-
-        
+        </form>        
         {% endfor %}
 
 
