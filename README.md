@@ -2,7 +2,7 @@ This project is an eLearning web application designed to facilitate online educa
 
 Features
 Course Management: Create, update, and delete courses with ease.
-Content Delivery: Upload and manage educational materials, including videos, documents, and quizzes.
+Content Delivery: Upload and manage educational materials, including videos, documents, and quizzes
 User Authentication: Secure login and registration for students and instructors.
 Progress Tracking: Monitor student questions and performance through dashboards.
 Interactive Quizzes: Create quizzes to assess student understanding.
